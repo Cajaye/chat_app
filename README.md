@@ -1,1 +1,5 @@
-# Supabase auth + svelte
+# Svelte + Supabase
+
+Starting with the sign up section.
+
+## Sign up
