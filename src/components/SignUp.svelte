@@ -1,58 +1,16 @@
 <script>
   import supabase from "../lib/db.js";
-  import assets1 from "../assets/placeholder1.jpg";
-  import asset2 from "../assets/placeholder2.jpg";
-  import asset3 from "../assets/placeholder3.jpg";
-  import asset4 from "../assets/placeholder4.jpg";
+  import Form from "./Form.svelte";
+  import Slider from "./Slider.svelte";
 
-  let objs = [
-    //images and text to be displayed eveytime use clicks an arrow
-    {
-      text: "some bad ass text",
-      img: assets1,
-    },
-    {
-      text: "some lorem text",
-      img: asset2,
-    },
-    {
-      text: "some more text",
-      img: asset3,
-    },
-    {
-      text: "some more more text",
-      img: asset4,
-    },
-  ];
-
-  let imgs; //declaring imgs and textx here so that they are accessible in the functions
-  let texts;
-
-  let value = 0; //inital value of image is set to 0
-  function changeVal() {
-    //function for adding to the value
-    value++;
-    if (value > objs.length - 1) {
-      value = 0; //resets value if it's too much
-    }
-    imgs = objs[value].img;
-    texts = objs[value].text;
+  async function signInWithDiscord() {
+    const { error, user } = await supabase.auth.signIn({
+      provider: "discord",
+    });
   }
-
-  function decVal() {
-    //function for dereasg the value
-    value--;
-    if (value < 0) {
-      value = 0; //resets value f it's too small
-    }
-    imgs = objs[value].img;
-    texts = objs[value].text;
-  }
-
-  //To do connect to supabase remember to write out the steps for everything to not get stuck
 </script>
 
-<section class="m-7">
+<section class="m-7 text-gray-900">
   <div class="flex justify-between items-center">
     <figure class="mb-6">
       <svg
@@ -107,6 +65,7 @@
       </header>
       <div class="">
         <button
+          on:click={signInWithDiscord}
           class="bg-purple-btn py-2 rounded-md text-center md:pl-6 pl-2 pr-6 md:pr-16 hover:bg-purple-btnHover mb-6"
           ><span>
             <svg
@@ -136,40 +95,8 @@
         <p class="mb-6">Or sign in with your email</p>
       </div>
       <div>
-        <form action="sign-in">
-          <div>
-            <label class="block mb-2" for="email">Email</label>
-            <input
-              class="bg-gray-200 rounded-md py-2 pl-6 md:pr-20 px-6 mb-6"
-              type="email"
-              id="email"
-              placeholder="example@email.com"
-            />
-          </div>
-          <div>
-            <label class="block mb-2" for="password">Password</label>
-            <input
-              class="bg-gray-200 rounded-md py-2 md:pr-20 px-6 mb-8"
-              type="password"
-              id="password"
-              placeholder="Use a strong password"
-            />
-          </div>
-          <button
-            class="bg-purple-btn rounded-md hover:bg-purple-btnHover py-2 px-10 md:pr-24 mb-6"
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              class="h-5 w-5 inline mr-6"
-              viewBox="0 0 20 20"
-              fill="currentColor"
-            >
-              <path
-                d="M8 9a3 3 0 100-6 3 3 0 000 6zM8 11a6 6 0 016 6H2a6 6 0 016-6zM16 7a1 1 0 10-2 0v1h-1a1 1 0 100 2h1v1a1 1 0 102 0v-1h1a1 1 0 100-2h-1V7z"
-              />
-            </svg><span class="mr-5">Create account</span></button
-          >
-        </form>
+        <!--Form starts here-->
+        <Form />
       </div>
       <div>
         <a href="placeholder">
@@ -178,66 +105,6 @@
       </div>
     </section>
     <!--Other section container starts here-->
-    <section>
-      <div class="bg-gray-50 w-full p-2 rounded-lg md:mx-auto shadow-md">
-        <!--Box-->
-        <div>
-          <img
-            id="slide"
-            class="rounded-md object-contain w-screen mx-auto h-72"
-            src={imgs}
-            alt="placeholder img"
-          />
-        </div>
-      </div>
-      <div class="mt-5 text-center">
-        <p>{texts}</p>
-      </div>
-      <div class="flex space-x-10 items-center justify-center my-7 lg:mb-0">
-        <div>
-          <svg
-            on:click={decVal}
-            xmlns="http://www.w3.org/2000/svg"
-            class="h-6 w-6 hover:cursor-pointer"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-          >
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
-              d="M11 17l-5-5m0 0l5-5m-5 5h12"
-            />
-          </svg>
-        </div>
-        <div>
-          <div
-            class="w-3 h-3 rounded-full inline-block ml-1 md:ml-3 bg-purple-btnHover"
-          />
-          <div class="circle" />
-          <div class="circle" />
-          <div class="circle" />
-        </div>
-        <div on:click={changeVal}>
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            class="h-6 w-6 hover:cursor-pointer"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-          >
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
-              d="M13 7l5 5m0 0l-5 5m5-5H6"
-            />
-          </svg>
-        </div>
-        <div />
-      </div>
-      <!--Ends here-->
-    </section>
+    <Slider />
   </article>
 </section>
