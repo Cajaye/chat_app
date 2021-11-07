@@ -2,6 +2,7 @@
   import supabase from "../lib/db.js";
   import Form from "./Form.svelte";
   import Slider from "./Slider.svelte";
+  import { navigate } from "svelte-navigator";
 
   async function signInWithDiscord() {
     const { error, user } = await supabase.auth.signIn({

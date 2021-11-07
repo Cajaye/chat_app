@@ -1,24 +1,26 @@
 <script>
   import supabase from "../lib/db.js";
+  import { navigate } from "svelte-navigator";
   //decalre a variable to hold email
   let email;
   //decalre a variable to hold password
   let password;
   async function handleLogin() {
-    const { error, user } = await supabase.auth.signUp({
+    const { error } = await supabase.auth.signUp({
       email: email,
       password: password,
     });
     email = "";
-    password = "";
+    password = ""; //clears input feilds after user creates their account
     return new Promise((resolve, reject) => {
       if (error) {
-        let msg = alert(error);
-        reject(msg);
+        reject();
       } else {
         resolve();
-        //redirect to other page
+        //if no error redirect to other page
       }
+    }).then(() => {
+      navigate("chat", { replace: true });
     });
   }
 </script>
@@ -57,10 +59,11 @@
         d="M8 9a3 3 0 100-6 3 3 0 000 6zM8 11a6 6 0 016 6H2a6 6 0 016-6zM16 7a1 1 0 10-2 0v1h-1a1 1 0 100 2h1v1a1 1 0 102 0v-1h1a1 1 0 100-2h-1V7z"
       />
     </svg>
+
     <input
       class="bg-purple-btn hover:bg-purple-btnHover rounded-md py-2 pr-16 md:pr-32 pl-20 mb-6 cursor-pointer"
       type="submit"
-      value="Crete account"
+      value="Create account"
       name="Create account"
     />
   </div>
