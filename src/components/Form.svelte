@@ -6,7 +6,7 @@
   //decalre a variable to hold password
   let password;
   async function handleLogin() {
-    const { error } = await supabase.auth.signUp({
+    const { error, session } = await supabase.auth.signUp({
       email: email,
       password: password,
     });
@@ -17,10 +17,10 @@
         reject();
       } else {
         resolve();
-        //if no error redirect to other page
+        console.log(session);
       }
     }).then(() => {
-      navigate("chat", { replace: true });
+      navigate("chat", { replace: true }); //if no error redirect to other page
     });
   }
 </script>

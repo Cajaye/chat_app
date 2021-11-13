@@ -14,3 +14,5 @@ Colors being used are:
 
 **Features:**
 Slider that changes every 4.5 sections and user can also change it manually
+
+## Chat-app
